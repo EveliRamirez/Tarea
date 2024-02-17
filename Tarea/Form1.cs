@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -11,8 +12,10 @@ using System.Windows.Forms;
 
 namespace Tarea
 {
+
     public partial class Form1 : Form
     {
+        private Bitmap lienzoBitmap;
         Graphics papel;
         int x = 0;
         int y = 0;
@@ -32,8 +35,7 @@ namespace Tarea
         {
             InitializeComponent();
             penFiguras = new Pen(colorFiguras, 2);
-
-            lienzo.Image = new Bitmap(lienzo.Height, lienzo.Width);
+            lienzoBitmap = new Bitmap(lienzo.Width, lienzo.Height); 
             papel = lienzo.CreateGraphics();
             papel.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             tampincel = trackBartampincel.Value;
@@ -44,8 +46,8 @@ namespace Tarea
             pen.StartCap = pen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
             trackBartampincel.Scroll += trackBartampincel_Scroll;
             btnCargarImagen.Click += BtnCargarImagen_Click;
-            
-          
+
+
 
         }
 
@@ -94,11 +96,11 @@ namespace Tarea
                         DibujarForma(formaActual, new Point(x, y), e.Location);
                         break;
                     case FormaGeometrica.Triangulo:
-                        
+
                         Point punto1 = new Point(x, y);
                         Point punto2 = new Point(e.X, y);
                         Point punto3 = new Point((x + e.X) / 2, e.Y);
-                       
+
                         DibujarTriangulo(punto1, punto2, punto3);
                         break;
                 }
@@ -139,7 +141,7 @@ namespace Tarea
                 txtR.Text = colorDialog1.Color.R.ToString();
                 txtG.Text = colorDialog1.Color.G.ToString();
                 txtB.Text = colorDialog1.Color.B.ToString();
-                
+
             }
         }
 
@@ -187,8 +189,8 @@ namespace Tarea
         {
 
             Graphics g = lienzo.CreateGraphics();
-            Pen pen = new Pen(colorFiguras, 2); 
-            Brush brush = new SolidBrush(colorFiguras); 
+            Pen pen = new Pen(colorFiguras, 2);
+            Brush brush = new SolidBrush(colorFiguras);
 
             switch (forma)
             {
@@ -222,7 +224,7 @@ namespace Tarea
         {
             // Obtener el gráfico del lienzo
             Graphics g = lienzo.CreateGraphics();
-     
+
 
             Point[] puntos = { punto1, punto2, punto3 };
 
@@ -267,12 +269,57 @@ namespace Tarea
                     {
                         MessageBox.Show("Error al cargar la imagen: " + ex.Message);
                     }
+
                 }
+
             }
         }
 
-    } 
-        
+        private void btnGuardarImagen_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                {
+                    saveFileDialog.Filter = "Archivos de imagen PNG|*.png|Archivos de imagen JPEG|*.jpg";
+                    saveFileDialog.Title = "Guardar imagen";
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        ImageFormat formato = ImageFormat.Png; // Por defecto, se guarda como PNG
+                        if (saveFileDialog.FilterIndex == 2)
+                        {
+                            formato = ImageFormat.Jpeg;
+                        }
+
+                        // Guardar el contenido del lienzo como una imagen
+                        lienzoBitmap.Save(saveFileDialog.FileName, formato);
+                        MessageBox.Show("Imagen guardada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al guardar la imagen: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCambiarColor_Click(object sender, EventArgs e)
+        {
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                this.BackColor = colorDialog1.Color;
+            }
+        }
+    }
+            }
+        
     
+
+
 

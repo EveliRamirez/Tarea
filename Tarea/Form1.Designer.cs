@@ -47,6 +47,8 @@
             this.txtTamanoPincel = new System.Windows.Forms.TextBox();
             this.btnCargarImagen = new System.Windows.Forms.Button();
             this.btnRellenado = new System.Windows.Forms.Button();
+            this.btnGuardarImagen = new System.Windows.Forms.Button();
+            this.btnCambiarColor = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.lienzo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBlack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
@@ -56,7 +58,7 @@
             // lienzo
             // 
             this.lienzo.BackColor = System.Drawing.SystemColors.Window;
-            this.lienzo.Location = new System.Drawing.Point(456, 67);
+            this.lienzo.Location = new System.Drawing.Point(495, 66);
             this.lienzo.Name = "lienzo";
             this.lienzo.Size = new System.Drawing.Size(921, 488);
             this.lienzo.TabIndex = 0;
@@ -221,12 +223,34 @@
             this.btnRellenado.Text = "Rellenar";
             this.btnRellenado.UseVisualStyleBackColor = true;
             // 
+            // btnGuardarImagen
+            // 
+            this.btnGuardarImagen.Location = new System.Drawing.Point(56, 532);
+            this.btnGuardarImagen.Name = "btnGuardarImagen";
+            this.btnGuardarImagen.Size = new System.Drawing.Size(75, 23);
+            this.btnGuardarImagen.TabIndex = 18;
+            this.btnGuardarImagen.Text = "Guardar";
+            this.btnGuardarImagen.UseVisualStyleBackColor = true;
+            this.btnGuardarImagen.Click += new System.EventHandler(this.btnGuardarImagen_Click);
+            // 
+            // btnCambiarColor
+            // 
+            this.btnCambiarColor.Location = new System.Drawing.Point(258, 326);
+            this.btnCambiarColor.Name = "btnCambiarColor";
+            this.btnCambiarColor.Size = new System.Drawing.Size(192, 23);
+            this.btnCambiarColor.TabIndex = 19;
+            this.btnCambiarColor.Text = "Cambiar Color";
+            this.btnCambiarColor.UseVisualStyleBackColor = true;
+            this.btnCambiarColor.Click += new System.EventHandler(this.btnCambiarColor_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.ClientSize = new System.Drawing.Size(1441, 626);
+            this.Controls.Add(this.btnCambiarColor);
+            this.Controls.Add(this.btnGuardarImagen);
             this.Controls.Add(this.btnRellenado);
             this.Controls.Add(this.btnCargarImagen);
             this.Controls.Add(this.txtTamanoPincel);
@@ -247,6 +271,7 @@
             this.Controls.Add(this.lienzo);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.lienzo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBlack)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).EndInit();
@@ -277,6 +302,8 @@
         private System.Windows.Forms.TextBox txtTamanoPincel;
         private System.Windows.Forms.Button btnCargarImagen;
         private System.Windows.Forms.Button btnRellenado;
+        private System.Windows.Forms.Button btnGuardarImagen;
+        private System.Windows.Forms.Button btnCambiarColor;
     }
 }
 
